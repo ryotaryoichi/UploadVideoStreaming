@@ -20,3 +20,5 @@ Route::get('/', function () {
 
 Route::get('video-upload', [ VideoController::class, 'getVideoUploadForm' ])->name('get.video.upload');
 Route::post('video-upload', [ VideoController::class, 'uploadVideo' ])->name('store.video');
+Route::get('video-upload/{id}', [ VideoController::class, 'updateVideoTitle' ])->name('update.video');
+Route::delete('video-upload', [ VideoController::class, 'removeVideo' ])->name('destroy.video');
