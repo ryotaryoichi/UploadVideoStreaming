@@ -9,6 +9,12 @@ use Illuminate\Support\Str;
 
 class VideoController extends Controller
 {
+    public function index()
+    {
+        $video = Video::get();
+        return view('index')->with(['list' => $video]);
+    }
+
     public function getVideoUploadForm()
     {
         return view('video-upload');
@@ -89,8 +95,16 @@ class VideoController extends Controller
         return redirect()->route('view.video', $video->id)->with('success','Video has been successfully uploaded.');
     }
 
-    public function delete()
+    public function delete($id)
     {
+        $video = Video::find($id);
+        if (!$video) {
+            return back()->with('error','Video not found');;
+        }
+
+        $video->delete();
+
+        return redirect()->route('list.video')->with('success','Video has been successfully deleted.');
 
     }
 }
